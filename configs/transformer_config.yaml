@@ -1,0 +1,39 @@
+
+model:
+  type: transformer
+  config:
+    input_dim: 600
+    d_model: 256
+    num_heads: 8
+    num_layers: 6
+    d_ff: 1024
+    output_dim: 1
+    max_seq_len: 1000
+    dropout: 0.1
+    pooling: mean
+
+data:
+  data_dir: ./processed_data
+  signal_length: 600
+
+training:
+  batch_size: 32
+  epochs: 150
+  device: cuda
+  patience: 30
+  num_workers: 4
+  
+  optimizer:
+    type: adamw
+    lr: 5e-4
+    weight_decay: 1e-4
+  
+  scheduler:
+    type: warmup_cosine
+    warmup_epochs: 10
+    T_max: 150
+
+logging:
+  log_dir: ./logs
+  log_level: INFO
+  save_checkpoint_every: 15

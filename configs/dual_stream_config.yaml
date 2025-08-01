@@ -1,0 +1,35 @@
+
+model:
+  type: dual_stream
+  config:
+    signal_dim: 600
+    image_channels: 3
+    output_dim: 256
+
+data:
+  data_dir: ./processed_data
+  signal_length: 600
+  image_size: 600
+  num_channels: 3
+
+training:
+  batch_size: 64
+  epochs: 100
+  device: cuda
+  patience: 20
+  num_workers: 4
+  
+  optimizer:
+    type: adamw
+    lr: 1e-3
+    weight_decay: 1e-3
+  
+  scheduler:
+    type: cosine
+    T_max: 100
+    eta_min: 1e-6
+
+logging:
+  log_dir: ./logs
+  log_level: INFO
+  save_checkpoint_every: 10

@@ -1,0 +1,32 @@
+
+model:
+  type: multi_expert
+  config:
+    input_dim: 256
+    hidden_dim: 512
+    expert_names: ['SBP', 'DBP', 'HR', 'GLU']
+
+data:
+  data_dir: ./processed_data
+
+training:
+  batch_size: 64
+  epochs: 200
+  device: cuda
+  patience: 50
+  num_workers: 4
+  
+  optimizer:
+    type: adamw
+    lr: 1e-3
+    weight_decay: 1e-3
+  
+  scheduler:
+    type: step
+    step_size: 50
+    gamma: 0.5
+
+logging:
+  log_dir: ./logs
+  log_level: INFO
+  save_checkpoint_every: 20
